@@ -1,0 +1,35 @@
+
+
+                        <div class="card-group" style="width:70rem">
+                        <div class="card">
+                            <img src={{p.Img.url}} class="card-img-left" alt="No Image" width="180" height="150">
+                        </div>
+                        <div class="card">
+                            <p>{{p.Model.Maker.Maker}}/{{p.Model.Model}}</p>
+                        </div>
+                        <div class="card">
+                            <p>{{p.Description}}</p>
+                        </div>
+
+                        <div class="card">
+                            <div class="text-center">
+                                <p>{{p.Price}}</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="text-center">
+                                <p>{{p.Quantity}}</p>
+                            </div>
+                        </div>
+
+                        <div class="card" >
+                            <a href={{p.Model.URL}}>{{p.Model.URL|truncatechars:50}}</a>
+                        </div>
+
+                        {%if m_logIn%}
+                        <div class="card" >
+                            <a href="/phone/cart/{{p.id}}/">加入購物車</a>
+                        </div>
+                        {%endif%}
+
+                        </div>

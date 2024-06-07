@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>訂單建立</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+    {%include "phone_base.html"%}
+    <div class="container-fluid">
+        <div class="row row cols 12">
+            <div class="col-2"></div>
+            <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h4>訂單資料建立</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="card-group">
+                        <div class="card bg-light">
+                            <p>型號</p>
+                        </div>
+                        <div class="card bg-light">
+                            <p>數量</p>
+                        </div>
+                    </div>
+                    <div class="card-group">
+                    <div class="card">
+                        {%for p in plst%}
+                            <div class="card">
+                                <p>{{p}}</p>
+                            </div>
+                        {%endfor%}
+                    </div>
+                    <div class="card">
+                        {%for i in lst%}
+                            <div class="card">
+                            <p>{{i}}</p>
+                            </div>
+                        {%endfor%}
+                    </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <form name="shopped" action="/phone/shopped_add/" method="POST">
+                        {%csrf_token%}
+                        <label>發送地址</label>
+                        <input type="text" name="address" required="required">
+                        <label>通訊電話</label>
+                        <input type="text" name="phone_number" required="required">
+                        <br>
+                        <input type="submit" value="送出訂單" name="send">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>

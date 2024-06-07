@@ -1,0 +1,129 @@
+{%extends "phone_base.html"%}
+{% block body %}
+
+<div class="container-fluid">
+<div class="row row-cols-12">
+    <div class="col-2"></div>
+    <div class="col">
+
+        <div class="card-group" style="width:15rem">
+        <div class="card">
+            <form name="create-table" action="/phone/create/" enctype="multipart/form-data" method="POST">
+                {%csrf_token%}
+                <label for="maker">廠牌</label>
+                <br>
+                <input id="maker" type="text" name="maker" required="required">
+                <br>
+                <label for="country">廠牌所屬地</label>
+                <br>
+                <input id="country" type="text" name="country" required="required">
+                <br>
+                <label for="model">型號</label>
+                <br>
+                <input id="model" type="text" name="model" required="required">
+                <br>
+                <label for="url">原廠網址</label>
+                <br>
+                <input id="url" type="text" name="url" required="required">
+                <br>
+                <label for="description">狀況描述</label>
+                <br>
+                <input id="description" type="text" name="description" required="required">
+                <br>
+                <label for="price">價格</label>
+                <br>
+                <input id="price" type="number" name="price" required="required">
+                <br>
+                <label for="quantity">數量</label>
+                <br>
+                <input id="quantity" type="number" name="quantity" required>
+                <br>
+                <label>圖片(請使用 .jpg檔案)</label>
+                <br>
+                <input type="file" name="img">
+                <br>
+                <p></p>
+                <input type="submit" value="創建">
+            </form>
+            <div class="card-footer">
+                {%if csuc %}
+                <p>創建成功</p>
+                {%elif csuc == False%}
+                <p>請填寫資料</p>
+                <p>(全部填寫才能成功喔)</p>
+                {%endif%}
+            </div>
+        </div>
+        </div>
+        </div>
+
+
+         <div class="col col-sm-8">
+
+         <div class="card" style="width:50rem">
+            <form name="delete-choose" action="/phone/create/" method="POST">
+                {%csrf_token%}
+                <label>刪除上架的商品</label>
+                <br>
+                <p></p>
+                <label>id :</label>
+                <select name="deletion">
+                    <option value="" selected>請選擇</option>
+                        {%for p in product%}
+                    <option value={{p.id}}>{{p.id}}</option>
+                {%endfor%}
+                </select>
+                <input type="submit" value="執行">
+            </form>
+             {%if delet%}
+             <div class="card-footer" style="height:3rem">成功刪除</div>
+             {%else%}
+             <div class="card-footer" style="height:3rem"></div>
+             {%endif%}
+             <div class="card-group">
+
+                 <div class="card bg-light">
+                     <p>商品 ID</p>
+                 </div>
+
+                 <div class="card bg-light">
+                     <p>型號</p>
+                 </div>
+
+                 <div class="card bg-light">
+                     <p>描述</p>
+                 </div>
+
+                 <div class="card bg-light">
+                     <p>價格</p>
+                 </div>
+
+             </div>
+
+             {%for p in product%}
+                <div class="card-group">
+
+                 <div class="card">
+                     <p>{{p.id}}</p>
+                 </div>
+
+                 <div class="card">
+                     <p>{{p.Model.Model}}</p>
+                 </div>
+
+                 <div class="card">
+                     <p>{{p.Description}}</p>
+                 </div>
+
+                 <div class="card bg-light">
+                     <p>{{p.Price}}</p>
+                 </div>
+
+             </div>
+             {%endfor%}
+
+        </div>
+        </div>
+</div>
+</div>
+{% endblock %}

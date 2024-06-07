@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>創建帳號</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+
+{%include "phone_base.html"%}
+<p></p>
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-4"></div>
+        <div class="col-sm-4">
+        <div class="card" style="width:20rem">
+
+            <div class="card-header">
+                <h4><p>基本資料填寫</p></h4>
+            </div>
+
+            <form name="create-account" action="/account_create/" method="POST">
+                {%csrf_token%}
+                <label>帳號設定 </label>
+                <p>(請設定超過 5個字元或符號)</p>
+                <input type="text" id="new-account" name="new-account">
+                <br>
+
+                <label>密碼設定 </label>
+                <p>(請設定超過 5個字元或符號)</p>
+                <input type="password" id="new-password" name="new-password">
+                <br>
+
+                <label>密碼確認 </label>
+                <p>(請輸入相同密碼進行確認)</p>
+                <input type="password" id="check-password" name="check-password">
+                <br>
+
+                <label>電子信箱 </label>
+                <p>(請輸入電子信箱)</p>
+                <input type="text" id="e-mail" name="e-mail">
+                <br>
+
+                <p></p>
+                <script src="https://www.google.com/recaptcha/api.js"></script>
+                <div class="g-recaptcha" data-sitekey="6LcotrUpAAAAAGy7w3htE1wwIywm64oC93S2o5BN"></div>
+                <p></p>
+                <input type="submit" name="logIn" value="創建">
+
+                <div class="card-footer">
+                    {%if tryIn%}
+                        {%if not acPass%}
+                            <p>帳號與規範不符或已存在</p>
+
+                        {%elif not paPass%}
+                            <p>密碼與規範不符</p>
+
+                        {%elif not chPass%}
+                            <p>密碼與確認密碼不符</p>
+
+                        {%elif not ePass%}
+                            <p>電子信箱已存在或不符規範</p>
+
+                        {%elif not rePass%}
+                            <p>驗證未通過</p>
+
+                        {%elif allPass%}
+                            <p>創建成功</p>
+
+                        {%endif%}
+                    {%endif%}
+                </div>
+
+            </form>
+
+
+
+        </div>
+        </div>
+        </div>
+
+
+</div>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>

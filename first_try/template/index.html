@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>部落格</title>
+</head>
+
+<body>
+<h2>部落格列表</h2>
+<hr>
+<table width=1000 border=1 bgcolor=#ccffcc>
+    <tr>
+        <td>Title</td>
+        {% for blog in blogs%}
+        <td><a href="/{{blog.title}}">{{blog.title}}</a></td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>上傳時間</td>
+        {% for blog in blogs%}
+        <td>{{blog.pub_date|date:" Y M D h:m:s"}}</td>
+        {% endfor %}
+    </tr>
+</table>
+<hr>
+<table width=1000 border=1 bgcolor=#ccff00>
+    <tr>
+        <td>Title</td><td>上傳時間</td>
+    </tr>
+    {% for blog in blogs %}
+        <tr>
+            <td><a href="/{{blog.title}}">{{blog.title}}</a></td><td>{{blog.pub_date}}</td>
+        </tr>
+    {% endfor %}
+</table>
+<hr>
+<a href="/">返回首頁</a>
+</body>
+</html>

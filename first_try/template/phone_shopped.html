@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>訂單</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+{%include "phone_base.html"%}
+<p></p>
+<div class="container-fluid">
+    <div class="row row-cols-12">
+        <div class="col-2"></div>
+        <div class="card">
+            <div class="card-header">訂購商品</div>
+            <div class="card-body">
+                <p></p>
+                <div class="card-group">
+                    <div class="card bg-light">
+                        <p>產品</p>
+                    </div>
+                    <div class="card bg-light">
+                        <p>數量</p>
+                    </div>
+                    <div class="card bg-light" style="width:6rem">
+                        <p>單價</p>
+                    </div>
+                    <div class="card bg-light" style="width:6rem">
+                        <p>已付款</p>
+                    </div>
+                </div>
+                {%for c in shopped_item%}
+                    {%for p in products%}
+                        {%if c.pid == p.id%}
+                            <div class="card-group">
+                                <div class="card">
+                                <p>{{p.Model.Model}}</p>
+                                </div>
+                                <div class="card">
+                                <p>{{c.quantity}}</p>
+                                </div>
+                                <div class="card">
+                                <p>{{p.Price}}</p>
+                                </div>
+                                <div class="card">
+                                <p>{{c.paid}}</p>
+                                </div>
+                            </div>
+                        {%endif%}
+                    {%endfor%}
+                {%endfor%}
+            </div>
+            <div class="card-footer">
+
+                <p></p>
+                <p>未付款總額 : {{total}}</p>
+                <p></p>
+                {{paypal_form.render}}
+
+                {%if pay == True%}
+                <p>付款成功</p>
+                {%elif pay == False%}
+                <p>付款失敗</p>
+                {%endif%}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>

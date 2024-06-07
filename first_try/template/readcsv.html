@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>111年各縣市新生兒</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row" style="background-color: #ccffcc">
+        <h3>民國111年各縣市新生兒</h3>
+    </div>
+    <div class="row row-cols-12">
+        <div class="col-2">
+            {%include "card.html"%}
+        </div>
+        <div class="col-1"></div>
+        <div class="col-6">
+            <div>
+            <canvas id="myChart"></canvas>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const ctx = document.getElementById('myChart');
+
+                new Chart(ctx, {
+                    data: {
+                        labels: [
+                        {%for i in born%}
+                        '{{i.City}}',
+                        {%endfor%}
+                        ],
+                        datasets: [{type: 'bar',
+                                    label: '民國111年各縣市新生兒',
+                                    data: [
+                                        {%for i in born%}
+                                            {{i.Sum}},
+                                        {%endfor%}
+                                          ],
+                                    borderWidth: 3},
+                                    {type: 'bar',
+                                    label: '民國111年各縣市新生兒(男)',
+                                    data: [
+                                        {%for i in born%}
+                                            {{i.Male}},
+                                        {%endfor%}
+                                          ],
+                                    borderWidth: 1
+                                   },
+                                   {type: 'bar',
+                                    label: '民國111年各縣市新生兒(女)',
+                                    data: [
+                                        {%for i in born%}
+                                            {{i.Female}},
+                                        {%endfor%}
+                                          ],
+                                    borderWidth: 1
+                                   }
+                                   ]
+                            },
+                        options: {
+
+                            scales: {
+                                y: {
+                                beginAtZero: true
+                                    }
+                                     },
+
+                                  }
+                                });
+
+
+            </script>
+
+
+
+            </div>
+
+            <div class="col-3">
+            <div class="card-group" style="height:5rem ; width:20rem">
+                <div class="card bg-light">
+                    <p><h4>縣市</h4></p>
+                </div>
+                <div class="card bg-light">
+                    <p><h4>總和</h4></p>
+                </div>
+                <div class="card bg-light">
+                    <p><h4>男生</h4></p>
+                </div>
+                <div class="card bg-light">
+                    <p><h4>女生</h4></p>
+                </div>
+            </div>
+            {%for data in born%}
+            <div class="card-group" style="height:5rem ; width:20rem">
+                <div class="card bg-light">
+                    <p>{{data.City}}</p>
+                </div>
+                <div class="card bg-light">
+                    <p>{{data.Sum}}</p>
+                </div>
+                <div class="card bg-light">
+                    <p>{{data.Male}}</p>
+                </div>
+                <div class="card bg-light">
+                    <p>{{data.Female}}</p>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+</body>
+</html>

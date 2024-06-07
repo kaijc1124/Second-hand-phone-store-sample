@@ -1,0 +1,172 @@
+{%extends "phone_base.html"%}
+
+{%block body%}
+    <div class="container-fluid">
+        <div class="row row-cols-12">
+            <div class="col-2">
+            <div class="card" style="width: 15rem">
+                {%if m_logIn%}
+                <h5 nowrap>{{mac}}</h5><p>歡迎光臨</p>
+                <form name="Out" action="/phone/" method="POST">
+                    {%csrf_token%}
+                    <input name="logOut" type="submit" value="登出">
+                </form>
+                <div class="card-footer">
+                    <p></p>
+                    <a href="create/">創建新商品</a>
+                    <br>
+                    <p></p>
+                    <a href="cart/">購物車</a>
+                    <br>
+                    <p></p>
+                    <a href="shopped_list/">訂單</a>
+                </div>
+                {%else%}
+
+                <form name="user-signIn" action="/phone/" method="POST">
+                    {%csrf_token%}
+                    <label for="user-account">Account</label>
+                    <input id="user-account" type="text" name="user-account">
+                    <br>
+                    <label for="user-password">Password</label>
+                    <input id="user-password" type="password" name="user-password">
+                    <br>
+                    <input type="submit" value="登入">
+                    <input type="reset" value="重設">
+                </form>
+
+                <div class="card-footer">
+                        {%if ulog == False and plog == True%}
+                        <p>帳號未輸入</p>
+                        {%elif ulog == True and plog == False%}
+                        <p>密碼未輸入</p>
+                        {%elif ulogIn == False%}
+                        <p>無此帳號</p>
+                        {%elif logIn == False%}
+                        <p>密碼錯誤</p>
+                        {%else%}
+                        <p></p>
+                        {%endif%}
+                        <a href="account_create/">創建帳號</a>
+
+                </div>
+                {%endif%}
+            </div>
+            </div>
+
+
+            <div class="col-4">
+                    <div class="card">
+                    <form name="makers" action="/phone/" method="GET" style="background-color:#ccffcc;width:70rem">
+                        <label>品牌 :</label>
+                            {%for m in maker%}
+                            {%if m.Maker in smaker%}
+                            <input type="checkbox" name="Maker" value={{m.Maker}} checked>{{m.Maker}}
+                            {%else%}
+                            <input type="checkbox" name="Maker" value={{m.Maker}}>{{m.Maker}}
+                            {%endif%}
+                            {%endfor%}
+                        <hr>
+                        <label> 庫存</label>
+                        <select name="rest">
+                            {%if rest == "0" or rest == None%}
+                            <option value="0" selected>全部</option>
+                            <option value="1">有庫存</option>
+                            {%else%}
+                            <option value="0">全部</option>
+                            <option value="1" selected>有庫存</option>
+                            {%endif%}
+                        </select>
+
+                        <input type="submit" value="篩選">
+                    </form>
+                    </div>
+            </div>
+            </div>
+
+        <div class="row row-cols-12">
+            <div class="col-sm-12 col-md-2"></div>
+                <div class="card-group" style="width:70rem">
+            <div class="card bg-light">
+                <div class="text-center">
+                    <p></p>
+                    <p>圖片</p>
+                </div>
+            </div>
+            <div class="card bg-light">
+                <div class="text-center">
+                    <p></p>
+                    <p>廠牌/型號</p>
+                </div>
+            </div>
+            <div class="card bg-light">
+                <div class="text-center">
+                    <p></p>
+                    <p>手機狀況</p>
+                </div>
+            </div>
+
+            <div class="card bg-light">
+                <div class="text-center">
+                    <p></p>
+                    <p>價格</p>
+                </div>
+            </div>
+            <div class="card bg-light">
+                <div class="text-center">
+                    <p></p>
+                    <p>庫存</p>
+                </div>
+            </div>
+
+            <div class="card bg-light">
+                <div class="border">
+                    <p></p>
+                    <p>手機規格(原廠說明書)</p>
+                </div>
+            </div>
+
+            {%if m_logIn%}
+            <div class="card bg-light">
+                <div class="border">
+                    <p></p>
+                    <p>購物車</p>
+                </div>
+            </div>
+            {%endif%}
+
+
+
+                    {%if smaker != None and rest == "0"%}
+                    {%for p in phone%}
+                        {%if p.Model.Maker.Maker in smaker%}
+                        {%include "phone_show.html"%}
+                        {%endif%}
+                        {%endfor%}
+
+                    {%elif smaker == None and rest == "0"%}
+                        {%for p in phone%}
+                        {%include "phone_show.html"%}
+                        {%endfor%}
+
+                    {%elif smaker == None and rest == "1"%}
+                        {%for p in phone%}
+                        {%if p.Quantity != 0%}
+                        {%include "phone_show.html"%}
+                        {%endif%}
+                        {%endfor%}
+
+                    {%elif smaker != None and rest == "1"%}
+                        {%for p in phone%}
+                        {%if p.Quantity >= 1 and p.Model.Maker.Maker in smaker%}
+                        {%include "phone_show.html"%}
+                        {%endif%}
+                        {%endfor%}
+                    {%endif%}
+                </div>
+        </div>
+        </div>
+
+    </div>
+
+{%endblock%}
